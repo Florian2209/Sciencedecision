@@ -21,7 +21,7 @@ public:
     void creer_BDD();
 
 public slots:
-    void remplirBDD();
+    void parserFichierEntree();
 
 private:
     Ui::MainWindow *ui;

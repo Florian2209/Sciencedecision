@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     creer_BDD();
 
-    connect(ui->pushButton_selection_fichier_donnees, SIGNAL(clicked()), this, SLOT(remplirBDD()));
+    connect(ui->pushButton_selection_fichier_donnees, SIGNAL(clicked()), this, SLOT(parserFichierEntree()));
 }
 
 MainWindow::~MainWindow()
@@ -17,7 +17,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::remplirBDD()
+void MainWindow::parserFichierEntree()
 {
     QString nom_BDD = QFileDialog::getOpenFileName();
 }
