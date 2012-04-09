@@ -1,3 +1,21 @@
-aa
-ac
+I) On rempli la base de donnée avec les enregistrements des tableaux excel.
+
+	Pour ce faire il faut d'abord ouvrir le fichier xslx avec open office et l'enregistrer en csv. Il faut 		penser à mettre ";" comme délimiteur.
+
+	Ensuite il faut "nettoyer" un peu ce fichier. Certaine colonnes ne présentent pour le moment que très 
+	peu d'intérêts (Les documents, les contacts et les dâtes de fin du forum par exemple).
+	Pour les forum: on crée une table "forum" qui contient le titre, l'établissement et la dâte. (pour le 		moment ce sont les infos qui me paraissent les plus pertinantes)
+
+	On possède donc une base de données avec 655 enregistrements. (Il faut supprimer des enregistrement en fonction des personnes qui y sont allées, si personne n'y est allé il faut le suprimmer...logique)
+
+	Il faut savoir que le programme Qt se base sur un formatage précis du fichier en CSV (un ajout ou 		suppression de colonne ou l'utilisation de délimiteurs autres entrainera une lecture du fichier CSV 		erronnée).
+
+	Nous allons d'abord nous concentrer sur l'utilisation de ces enregistrements pour essayer de trouver 		des correlation avec les arrivées à polytech. (On définira un formalisme précis du fichier CSV plus 		tard)
+
+	Il nous faut donc maintenant créer une nouvelle table "arrivees" qui contiendra un id et la provenance 		de l'élève. 
+
+II) On recoupe les informations des forums et des élèves...
+
+
+
 
