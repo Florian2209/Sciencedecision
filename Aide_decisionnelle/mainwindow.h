@@ -6,6 +6,8 @@
 #include <QFileDialog>
 #include <QSqlDatabase>
 #include <QSqlQuery>
+#include <QtDebug>
+#include <QDomDocument>
 
 namespace Ui {
     class MainWindow;
@@ -21,7 +23,7 @@ public:
     void creer_BDD();
 
 public slots:
-    void parserFichierEntree();
+    void remplirBDDAvecFichierCSV();
 
 private:
     Ui::MainWindow *ui;

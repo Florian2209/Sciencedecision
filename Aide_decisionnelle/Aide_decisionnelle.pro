@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql
+QT       += core gui sql xml
 
 TARGET = Aide_decisionnelle
 TEMPLATE = app
