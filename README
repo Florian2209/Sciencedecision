@@ -4,7 +4,7 @@ I) On rempli la base de donnée avec les enregistrements des tableaux excel.
 
 	Ensuite il faut "nettoyer" un peu ce fichier. Certaine colonnes ne présentent pour le moment que très 
 	peu d'intérêts (Les documents, les contacts et les dâtes de fin du forum par exemple).
-	Pour les forum: on crée une table "forum" qui contient le titre, l'établissement et la dâte. (pour le 		moment ce sont les infos qui me paraissent les plus pertinantes)
+	Pour les forum: on crée une table "forum" qui contient le titre, l'établissement et la dâte. (pour le 		moment ce sont les infos qui me paraissent les plus pertinentes)
 
 	On possède donc une base de données avec 655 enregistrements. (Il faut supprimer des enregistrement en fonction des personnes qui y sont allées, si personne n'y est allé il faut le suprimmer...logique)
 
