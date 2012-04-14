@@ -7,8 +7,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    creer_BDD();
-
     connect(ui->pushButton_selection_fichier_donnees, SIGNAL(clicked()), this, SLOT(remplirBDDAvecFichierCSV()));
 }
 
@@ -21,12 +19,15 @@ void MainWindow::remplirBDDAvecFichierCSV()
 {
     QString fileName = QFileDialog::getOpenFileName();
     QFile file(fileName);
+
+    creer_BDD(fileName);
+
     file.open(QFile::ReadOnly | QFile::Text);            //Open the file with readonly mode and text mode
 
     QTextStream stream(&file);                       //the stream "stream" permits to access to the file "file"
 
     QSqlDatabase connexionBDD = QSqlDatabase::addDatabase("QSQLITE");                                                                   //Connection to the database
-    connexionBDD.setDatabaseName("bdd2");
+    connexionBDD.setDatabaseName(fileName);
     connexionBDD.open();
 
     if (connexionBDD.isOpen())
@@ -57,10 +58,10 @@ void MainWindow::remplirBDDAvecFichierCSV()
 
 }
 
-void MainWindow::creer_BDD()
+void MainWindow::creer_BDD(QString aFileName)
 {
     QSqlDatabase connexionBDD = QSqlDatabase::addDatabase("QSQLITE");
-    connexionBDD.setDatabaseName("bdd2");
+    connexionBDD.setDatabaseName(aFileName);
     connexionBDD.open();
     if(connexionBDD.isOpen())
     {

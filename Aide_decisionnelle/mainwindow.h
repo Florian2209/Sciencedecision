@@ -20,7 +20,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void creer_BDD();
+    void creer_BDD(QString aFileName);
 
 public slots:
     void remplirBDDAvecFichierCSV();
