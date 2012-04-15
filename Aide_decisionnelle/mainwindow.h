@@ -20,11 +20,11 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void creer_BDD();
+    void remplirBDDAvecFichierCSVForums();
+    void remplirBDDAvecFichierCSVEleves();
 
 public slots:
-    void remplirBDDAvecFichierCSV();
-    void remplirBDDAvecFichierCSVEleves();
+    void creer_BDD();
 
 private:
     Ui::MainWindow *ui;
