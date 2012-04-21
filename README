@@ -16,6 +16,8 @@ I) On rempli la base de donnée avec les enregistrements des tableaux excel.
 
 II) On recoupe les informations des forums et des élèves...
 
+Requete pour compter le nombre de forums par départements : select count(distinct id) as nb from forum where Departement = 45;
+
 
 
 

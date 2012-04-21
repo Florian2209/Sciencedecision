@@ -41,13 +41,14 @@ void MainWindow::remplirBDDAvecFichierCSVForums()
         for(int i=1; i<listeOfLine.length();i++)
         {
             QStringList caseList = listeOfLine.at(i).split(";");
-            if(caseList.at(6)!="")                                  //This test permits to not register a forum where no one came
+            if(caseList.at(4)!="")                                  //This test permits to not register a forum where no one came
             {
-                query.prepare("INSERT INTO Forum(id, Titre, Etablissement, Date) VALUES(:id, :Titre, :Etablissement, :Date)");
+                query.prepare("INSERT INTO Forum(id, Titre, Etablissement, Departement, Date) VALUES(:id, :Titre, :Etablissement, :Departement, :Date)");
                 query.bindValue(":id", identifiantBaseDeDonnees);
                 query.bindValue(":Titre", caseList.at(0));
                 query.bindValue(":Etablissement", caseList.at(1));
-                query.bindValue(":Date", caseList.at(2));
+                query.bindValue(":Departement", caseList.at(2));
+                query.bindValue(":Date", caseList.at(3));
                 query.exec();
                 identifiantBaseDeDonnees++;
             }
@@ -105,7 +106,7 @@ void MainWindow::creer_BDD()
     if(connexionBDD.isOpen())
     {
         QSqlQuery query(connexionBDD);
-        query.exec("CREATE TABLE Forum(id INTEGER, Titre VARCHAR (50), Etablissement VARCHAR(50), Date VARCHAR (50))");
+        query.exec("CREATE TABLE Forum(id INTEGER, Titre VARCHAR (50), Etablissement VARCHAR(50), Departement INTEGER, Date VARCHAR (50))");
         query.exec("CREATE TABLE Eleve(id INTEGER, Annee VARCHAR(50), Etape VARCHAR(50), Nombre INTEGER, DeptBac INTEGER)");
         connexionBDD.close();
     }
