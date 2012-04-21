@@ -43,14 +43,23 @@ void MainWindow::remplirBDDAvecFichierCSVForums()
             QStringList caseList = listeOfLine.at(i).split(";");
             if(caseList.at(4)!="")                                  //This test permits to not register a forum where no one came
             {
-                query.prepare("INSERT INTO Forum(id, Titre, Etablissement, Departement, Date) VALUES(:id, :Titre, :Etablissement, :Departement, :Date)");
+                query.prepare("INSERT INTO Forum(id, Titre, Etablissement, Departement, Date, NombreParticipants) VALUES(:id, :Titre, :Etablissement, :Departement, :Date, :NombreParticipants)");
                 query.bindValue(":id", identifiantBaseDeDonnees);
                 query.bindValue(":Titre", caseList.at(0));
                 query.bindValue(":Etablissement", caseList.at(1));
                 query.bindValue(":Departement", caseList.at(2));
                 query.bindValue(":Date", caseList.at(3));
+                QString champParticipants = caseList.at(4);
+                int nbParticipants = champParticipants.count("#");
+                if(nbParticipants > 1) // Traitements à effectuer sur le nombre d'occurences de # dûes aux conventions d'écritures dans le fichier .csv
+                {
+                    nbParticipants--;
+                    nbParticipants = (nbParticipants/2)+1;
+                }
+                query.bindValue(":NombreParticipants", nbParticipants);
                 query.exec();
                 identifiantBaseDeDonnees++;
+
             }
         }
 
@@ -106,7 +115,7 @@ void MainWindow::creer_BDD()
     if(connexionBDD.isOpen())
     {
         QSqlQuery query(connexionBDD);
-        query.exec("CREATE TABLE Forum(id INTEGER, Titre VARCHAR (50), Etablissement VARCHAR(50), Departement INTEGER, Date VARCHAR (50))");
+        query.exec("CREATE TABLE Forum(id INTEGER, Titre VARCHAR (50), Etablissement VARCHAR(50), Departement INTEGER, Date VARCHAR (50), NombreParticipants INTEGER)");
         query.exec("CREATE TABLE Eleve(id INTEGER, Annee VARCHAR(50), Etape VARCHAR(50), Nombre INTEGER, DeptBac INTEGER)");
         connexionBDD.close();
     }
