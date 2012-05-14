@@ -14,18 +14,48 @@
    <string>Aide à la décision</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="pushButton_selection_fichier_donnees">
+   <widget class="QPushButton" name="validerButton">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>70</y>
-      <width>241</width>
-      <height>41</height>
+      <x>280</x>
+      <y>170</y>
+      <width>93</width>
+      <height>27</height>
      </rect>
     </property>
     <property name="text">
-     <string>Sélectionner fichier de données</string>
+     <string>Valider</string>
     </property>
+   </widget>
+   <widget class="QComboBox" name="anneeComboBox">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>40</y>
+      <width>171</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Année d'entrée</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>2009</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>2010</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>2011</string>
+     </property>
+    </item>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -34,7 +64,7 @@
      <x>0</x>
      <y>0</y>
      <width>384</width>
-     <height>25</height>
+     <height>23</height>
     </rect>
    </property>
   </widget>

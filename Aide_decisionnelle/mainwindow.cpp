@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    connect(ui->pushButton_selection_fichier_donnees, SIGNAL(clicked()), this, SLOT(creer_BDD()));
+    connect(ui->validerButton, SIGNAL(clicked()), this, SLOT(lancerRequete()));
 }
 
 MainWindow::~MainWindow()
@@ -44,11 +44,17 @@ void MainWindow::remplirBDDAvecFichierCSVForums()
             if(caseList.at(4)!="")                                  //This test permits to not register a forum where no one came
             {
                 query.prepare("INSERT INTO Forum(id, Titre, Etablissement, Departement, Date, NombreParticipants) VALUES(:id, :Titre, :Etablissement, :Departement, :Date, :NombreParticipants)");
+                QString Titre = caseList.at(0);
+                Titre.remove("\"", Qt::CaseInsensitive);
+                QString Etablissement = caseList.at(1);
+                Etablissement.remove("\"", Qt::CaseInsensitive);
+                QString Date = caseList.at(3);
+                Date.remove("\"", Qt::CaseInsensitive);
                 query.bindValue(":id", identifiantBaseDeDonnees);
-                query.bindValue(":Titre", caseList.at(0));
-                query.bindValue(":Etablissement", caseList.at(1));
+                query.bindValue(":Titre", Titre);
+                query.bindValue(":Etablissement", Etablissement);
                 query.bindValue(":Departement", caseList.at(2));
-                query.bindValue(":Date", caseList.at(3));
+                query.bindValue(":Date", Date);
                 QString champParticipants = caseList.at(4);
                 int nbParticipants = champParticipants.count("#");
                 if(nbParticipants > 1) // Traitements à effectuer sur le nombre d'occurences de # dûes aux conventions d'écritures dans le fichier .csv
@@ -93,14 +99,23 @@ void MainWindow::remplirBDDAvecFichierCSVEleves()
         for(int i=1; i<listeOfLine.length();i++)
         {
             QStringList caseList = listeOfLine.at(i).split(";");
-            query.prepare("INSERT INTO Eleve(id, Annee, Etape, Nombre, DeptBac) VALUES(:id, :Annee, :Etape, :Nombre, :DeptBac)");
-            query.bindValue(":id", identifiantBaseDeDonnees);
-            query.bindValue(":Annee", caseList.at(0));
-            query.bindValue(":Etape", caseList.at(1));
-            query.bindValue(":Nombre", caseList.at(3));
-            query.bindValue(":DeptBac", caseList.at(4));
-            query.exec();
-            identifiantBaseDeDonnees++;
+            if(caseList.at(0) != "\"ANNEE\"")
+            {
+                query.prepare("INSERT INTO Eleve(id, Annee, Etape, Nombre, DeptBac) VALUES(:id, :Annee, :Etape, :Nombre, :DeptBac)");
+                QString Etape = caseList.at(1);
+                Etape.remove("\"", Qt::CaseInsensitive);
+                QString Nombre = caseList.at(3);
+                Nombre.remove("\"", Qt::CaseInsensitive);
+                QString DeptBac = caseList.at(4);
+                DeptBac.remove("\"", Qt::CaseInsensitive);
+                query.bindValue(":id", identifiantBaseDeDonnees);
+                query.bindValue(":Annee", caseList.at(0));
+                query.bindValue(":Etape", Etape);
+                query.bindValue(":Nombre", Nombre);
+                query.bindValue(":DeptBac", DeptBac);
+                query.exec();
+                identifiantBaseDeDonnees++;
+            }
         }
 
     }
@@ -124,3 +139,29 @@ void MainWindow::creer_BDD()
 
 }
 
+void MainWindow::lancerRequete()
+{
+    QSqlDatabase connexionBDD = QSqlDatabase::addDatabase("QSQLITE");
+    connexionBDD.setDatabaseName("BDD");
+    connexionBDD.open();
+    if(connexionBDD.isOpen())
+    {
+        QSqlQuery query;
+        QString annee = ui->anneeComboBox->currentText();
+
+        if(!(annee.contains("A"))) // On est toujours sur la valeur par défaut
+        {
+            query.prepare("SELECT nombre FROM eleve WHERE annee = :Annee");
+            query.bindValue(":Annee", annee);
+            double resultat = 0;
+            if(query.exec())
+            {
+                while(query.next())
+                {
+                    resultat += query.value(0).toDouble();
+                }
+            }
+            qDebug() << resultat;
+        }
+    }
+}

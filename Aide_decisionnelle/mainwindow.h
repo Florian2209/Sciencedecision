@@ -8,6 +8,7 @@
 #include <QSqlQuery>
 #include <QtDebug>
 #include <QDomDocument>
+#include <QSqlRecord>
 
 namespace Ui {
     class MainWindow;
@@ -25,6 +26,7 @@ public:
 
 public slots:
     void creer_BDD();
+    void lancerRequete();
 
 private:
     Ui::MainWindow *ui;
