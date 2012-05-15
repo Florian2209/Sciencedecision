@@ -57,6 +57,74 @@
      </property>
     </item>
    </widget>
+   <widget class="QComboBox" name="promoComboBox">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>80</y>
+      <width>171</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Promotion</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>EI1PIP</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>EI3AMG</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>EI3ELE</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>EI3INF</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>EI3INI</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>EI3MEC</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>SL1MAI</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>SL1SCM</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="resultatLabel">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>120</y>
+      <width>171</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Résultat : </string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

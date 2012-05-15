@@ -147,21 +147,58 @@ void MainWindow::lancerRequete()
     if(connexionBDD.isOpen())
     {
         QSqlQuery query;
+        double resultat = 0;
         QString annee = ui->anneeComboBox->currentText();
+        QString promotion = ui->promoComboBox->currentText();
 
         if(!(annee.contains("A"))) // On est toujours sur la valeur par défaut
         {
-            query.prepare("SELECT nombre FROM eleve WHERE annee = :Annee");
-            query.bindValue(":Annee", annee);
-            double resultat = 0;
-            if(query.exec())
+            if(!(promotion.contains("Promo"))) // Idem
             {
-                while(query.next())
+                query.prepare("SELECT nombre FROM eleve WHERE annee = :Annee AND etape = :Promo");
+                query.bindValue(":Annee", annee);
+                query.bindValue(":Promo", promotion);
+                if(query.exec())
                 {
-                    resultat += query.value(0).toDouble();
+                    while(query.next())
+                    {
+                        resultat += query.value(0).toDouble();
+                    }
                 }
             }
-            qDebug() << resultat;
+            else
+            {
+                query.prepare("SELECT nombre FROM eleve WHERE annee = :Annee");
+                query.bindValue(":Annee", annee);
+                if(query.exec())
+                {
+                    while(query.next())
+                    {
+                        resultat += query.value(0).toDouble();
+                    }
+                }
+
+            }
         }
+        else
+        {
+            if(!(promotion.contains("Promo"))) // Idem
+            {
+                query.prepare("SELECT nombre FROM eleve WHERE etape = :Promo");
+                query.bindValue(":Annee", annee);
+                query.bindValue(":Promo", promotion);
+                if(query.exec())
+                {
+                    while(query.next())
+                    {
+                        resultat += query.value(0).toDouble();
+                    }
+                }
+            }
+        }
+
+        //QString test("Résultat : " << resultat << "étudiants");
+        //ui->resultatLabel->setText();
+        qDebug() << resultat;
     }
 }
