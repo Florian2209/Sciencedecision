@@ -27,7 +27,7 @@ public:
 public slots:
     void creer_BDD();
     void lancerRequete();
-
+    void affichageSpinBox(bool);
 private:
     Ui::MainWindow *ui;
 };

@@ -31,8 +31,8 @@
     <property name="geometry">
      <rect>
       <x>90</x>
-      <y>40</y>
-      <width>171</width>
+      <y>20</y>
+      <width>191</width>
       <height>31</height>
      </rect>
     </property>
@@ -61,8 +61,8 @@
     <property name="geometry">
      <rect>
       <x>90</x>
-      <y>80</y>
-      <width>171</width>
+      <y>60</y>
+      <width>191</width>
       <height>31</height>
      </rect>
     </property>
@@ -116,13 +116,42 @@
     <property name="geometry">
      <rect>
       <x>90</x>
-      <y>120</y>
+      <y>150</y>
       <width>171</width>
       <height>21</height>
      </rect>
     </property>
     <property name="text">
      <string>Résultat : </string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="departementCheckBox">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>100</y>
+      <width>121</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Département</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="departementSpinBox">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>100</y>
+      <width>55</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>96</number>
     </property>
    </widget>
   </widget>

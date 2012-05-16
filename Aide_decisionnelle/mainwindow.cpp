@@ -6,8 +6,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    ui->departementSpinBox->setVisible(false);
     connect(ui->validerButton, SIGNAL(clicked()), this, SLOT(lancerRequete()));
+    connect(ui->departementCheckBox, SIGNAL(clicked(bool)), this, SLOT(affichageSpinBox(bool)));
 }
 
 MainWindow::~MainWindow()
@@ -201,4 +202,8 @@ void MainWindow::lancerRequete()
         //ui->resultatLabel->setText();
         qDebug() << resultat;
     }
+}
+
+void MainWindow::affichageSpinBox(bool visible){
+    ui->departementSpinBox->setVisible(visible);
 }
