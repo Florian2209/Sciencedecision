@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->departementSpinBox->setVisible(false);
+    ui->resultatLabel->setVisible(false);
     connect(ui->validerButton, SIGNAL(clicked()), this, SLOT(lancerRequete()));
     connect(ui->departementCheckBox, SIGNAL(clicked(bool)), this, SLOT(affichageSpinBox(bool)));
 }
@@ -264,10 +265,8 @@ void MainWindow::lancerRequete()
                 }
             }
         }
-
-        //QString test("Résultat : " << resultat << "étudiants");
-        //ui->resultatLabel->setText();
-        qDebug() << resultat;
+        ui->resultatLabel->setText("Resultat : " + QString::number(resultat) + " etudiants concernes");
+        ui->resultatLabel->setVisible(true);
     }
 }
 
