@@ -6,10 +6,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->departementSpinBox->setVisible(false);
-    ui->resultatLabel->setVisible(false);
-    connect(ui->validerButton, SIGNAL(clicked()), this, SLOT(lancerRequete()));
-    connect(ui->departementCheckBox, SIGNAL(clicked(bool)), this, SLOT(affichageSpinBox(bool)));
+    QObject::connect(ui->tableEleve, SIGNAL(triggered(bool)), this, SLOT(lancerRequeteEleve()));
+    QObject::connect(ui->tableForum, SIGNAL(triggered(bool)), this, SLOT(lancerRequeteForum()));
 }
 
 MainWindow::~MainWindow()
@@ -141,135 +139,14 @@ void MainWindow::creer_BDD()
 
 }
 
-void MainWindow::lancerRequete()
+void MainWindow::lancerRequeteEleve()
 {
-    QSqlDatabase connexionBDD = QSqlDatabase::addDatabase("QSQLITE");
-    connexionBDD.setDatabaseName("BDD");
-    connexionBDD.open();
-    if(connexionBDD.isOpen())
-    {
-        QSqlQuery query;
-        double resultat = 0;
-        QString annee = ui->anneeComboBox->currentText();
-        QString promotion = ui->promoComboBox->currentText();
-        int departement = -1;
-        if(ui->departementSpinBox->isVisible())
-        {
-            departement = ui->departementSpinBox->value();
-        }
-
-        if(!(annee.contains("A"))) // On est toujours sur la valeur par défaut
-        {
-            if(!(promotion.contains("Promo"))) // Idem
-            {
-                if(departement != -1)
-                {
-                    query.prepare("SELECT nombre FROM eleve WHERE annee = :Annee AND etape = :Promo AND DeptBac = :Dept");
-                    query.bindValue(":Annee", annee);
-                    query.bindValue(":Promo", promotion);
-                    query.bindValue(":Dept", departement);
-                    if(query.exec())
-                    {
-                        while(query.next())
-                        {
-                            resultat += query.value(0).toDouble();
-                        }
-                    }
-                }
-                else
-                {
-                    query.prepare("SELECT nombre FROM eleve WHERE annee = :Annee AND etape = :Promo");
-                    query.bindValue(":Annee", annee);
-                    query.bindValue(":Promo", promotion);
-                    if(query.exec())
-                    {
-                        while(query.next())
-                        {
-                            resultat += query.value(0).toDouble();
-                        }
-                    }
-                }
-            }
-            else
-            {
-                if(departement != -1)
-                {
-                    query.prepare("SELECT nombre FROM eleve WHERE annee = :Annee AND DeptBac = :Dept");
-                    query.bindValue(":Annee", annee);
-                    query.bindValue(":Dept", departement);
-                    if(query.exec())
-                    {
-                        while(query.next())
-                        {
-                            resultat += query.value(0).toDouble();
-                        }
-                    }
-                }
-                else
-                {
-                    query.prepare("SELECT nombre FROM eleve WHERE annee = :Annee");
-                    query.bindValue(":Annee", annee);
-                    if(query.exec())
-                    {
-                        while(query.next())
-                        {
-                            resultat += query.value(0).toDouble();
-                        }
-                    }
-                }
-            }
-        }
-        else
-        {
-            if(!(promotion.contains("Promo"))) // Idem
-            {
-                if(departement != -1)
-                {
-                    query.prepare("SELECT nombre FROM eleve WHERE etape = :Promo AND DeptBac = :Dept");
-                    query.bindValue(":Promo", promotion);
-                    query.bindValue(":Dept", departement);
-                    if(query.exec())
-                    {
-                        while(query.next())
-                        {
-                            resultat += query.value(0).toDouble();
-                        }
-                    }
-                }
-                else
-                {
-                    query.prepare("SELECT nombre FROM eleve WHERE etape = :Promo");
-                    query.bindValue(":Promo", promotion);
-                    if(query.exec())
-                    {
-                        while(query.next())
-                        {
-                            resultat += query.value(0).toDouble();
-                        }
-                    }
-                }
-            }
-            else
-            {
-                if(departement != 1)
-                {
-                    query.prepare("SELECT nombre FROM eleve WHERE DeptBac = :Dept");
-                    query.bindValue(":Dept", departement);
-                    if(query.exec())
-                    {
-                        while(query.next())
-                        {
-                            resultat += query.value(0).toDouble();
-                        }
-                    }
-                }
-            }
-        }
-        ui->resultatLabel->setText("Resultat : " + QString::number(resultat) + " etudiants concernes");
-        ui->resultatLabel->setVisible(true);
-    }
+    RequeteEleve * fenetre = new RequeteEleve();
+    fenetre->show();
 }
 
-void MainWindow::affichageSpinBox(bool visible){
-    ui->departementSpinBox->setVisible(visible);
+void MainWindow::lancerRequeteForum()
+{
+    RequeteForum * fenetre = new RequeteForum();
+    fenetre->show();
 }

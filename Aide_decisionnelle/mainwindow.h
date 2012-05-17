@@ -6,9 +6,11 @@
 #include <QFileDialog>
 #include <QSqlDatabase>
 #include <QSqlQuery>
-#include <QtDebug>
 #include <QDomDocument>
-#include <QSqlRecord>
+#include "requeteeleve.h"
+#include "requeteforum.h"
+
+#include <QtDebug>
 
 namespace Ui {
     class MainWindow;
@@ -26,8 +28,8 @@ public:
 
 public slots:
     void creer_BDD();
-    void lancerRequete();
-    void affichageSpinBox(bool);
+    void lancerRequeteEleve();
+    void lancerRequeteForum();
 private:
     Ui::MainWindow *ui;
 };

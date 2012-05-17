@@ -13,148 +13,7 @@
   <property name="windowTitle">
    <string>Aide à la décision</string>
   </property>
-  <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="validerButton">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>180</y>
-      <width>93</width>
-      <height>27</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Valider</string>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="anneeComboBox">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>20</y>
-      <width>191</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <item>
-     <property name="text">
-      <string>Année d'entrée</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>2009</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>2010</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>2011</string>
-     </property>
-    </item>
-   </widget>
-   <widget class="QComboBox" name="promoComboBox">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>60</y>
-      <width>191</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <item>
-     <property name="text">
-      <string>Promotion</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>EI1PIP</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>EI3AMG</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>EI3ELE</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>EI3INF</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>EI3INI</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>EI3MEC</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>SL1MAI</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>SL1SCM</string>
-     </property>
-    </item>
-   </widget>
-   <widget class="QLabel" name="resultatLabel">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>150</y>
-      <width>261</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="departementCheckBox">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>100</y>
-      <width>121</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Département</string>
-    </property>
-   </widget>
-   <widget class="QSpinBox" name="departementSpinBox">
-    <property name="geometry">
-     <rect>
-      <x>220</x>
-      <y>100</y>
-      <width>55</width>
-      <height>27</height>
-     </rect>
-    </property>
-    <property name="minimum">
-     <number>1</number>
-    </property>
-    <property name="maximum">
-     <number>96</number>
-    </property>
-   </widget>
-  </widget>
+  <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
@@ -164,6 +23,14 @@
      <height>23</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuRequetesTables">
+    <property name="title">
+     <string>Requêtes sur tables</string>
+    </property>
+    <addaction name="tableEleve"/>
+    <addaction name="tableForum"/>
+   </widget>
+   <addaction name="menuRequetesTables"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -174,6 +41,16 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="tableEleve">
+   <property name="text">
+    <string>Requête sur tables 'Eleve'</string>
+   </property>
+  </action>
+  <action name="tableForum">
+   <property name="text">
+    <string>Requêtes sur table 'Forum'</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
