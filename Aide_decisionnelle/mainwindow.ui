@@ -25,10 +25,11 @@
    </property>
    <widget class="QMenu" name="menuRequetesTables">
     <property name="title">
-     <string>Requêtes sur tables</string>
+     <string>Options</string>
     </property>
     <addaction name="tableEleve"/>
     <addaction name="tableForum"/>
+    <addaction name="fichierCSV"/>
    </widget>
    <addaction name="menuRequetesTables"/>
   </widget>
@@ -49,6 +50,11 @@
   <action name="tableForum">
    <property name="text">
     <string>Requêtes sur table 'Forum'</string>
+   </property>
+  </action>
+  <action name="fichierCSV">
+   <property name="text">
+    <string>Créer fichier CSV</string>
    </property>
   </action>
  </widget>

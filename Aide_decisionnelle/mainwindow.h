@@ -7,6 +7,11 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QDomDocument>
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
 #include "requeteeleve.h"
 #include "requeteforum.h"
 
@@ -30,6 +35,8 @@ public slots:
     void creer_BDD();
     void lancerRequeteEleve();
     void lancerRequeteForum();
+    void lancerCreationFichierGlobal();
+    void lancerCreationFichierAnneeSpecifique();
 private:
     Ui::MainWindow *ui;
 };

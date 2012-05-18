@@ -8,6 +8,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     QObject::connect(ui->tableEleve, SIGNAL(triggered(bool)), this, SLOT(lancerRequeteEleve()));
     QObject::connect(ui->tableForum, SIGNAL(triggered(bool)), this, SLOT(lancerRequeteForum()));
+    QObject::connect(ui->fichierCSV, SIGNAL(triggered(bool)), this, SLOT(lancerCreationFichierGlobal()));
+    QObject::connect(ui->fichierCSV, SIGNAL(triggered(bool)), this, SLOT(lancerCreationFichierAnneeSpecifique()));
 }
 
 MainWindow::~MainWindow()
@@ -149,4 +151,205 @@ void MainWindow::lancerRequeteForum()
 {
     RequeteForum * fenetre = new RequeteForum();
     fenetre->show();
+}
+
+void MainWindow::lancerCreationFichierGlobal()
+{
+    QFile file("tableauDonneesGlobal.csv");
+
+    if (file.open(QFile::WriteOnly)) {
+
+        QTextStream flux(&file);
+        QSqlDatabase connexionBDD = QSqlDatabase::addDatabase("QSQLITE");                                                                   //Connection to the database
+        connexionBDD.setDatabaseName("BDD");
+        connexionBDD.open();
+
+        if (connexionBDD.isOpen())
+        {
+            QSqlQuery query;
+
+            int totalColonneAMG = 0;
+            int totalColonneELE = 0;
+            int totalColonneINF = 0;
+            int totalColonneMEC = 0;
+
+            for(int i = 1; i<=95; i++)
+            {
+                int nombre = 0;
+                int totalLigne = 0;
+                query.prepare("SELECT nombre FROM eleve WHERE DeptBac = :Dept AND etape = :Promo");
+                query.bindValue(":Dept", i);
+                query.bindValue(":Promo", "EI3AMG");
+                if(query.exec())
+                {
+                    while(query.next())
+                    {
+                        nombre += query.value(0).toInt();
+                    }
+                    totalColonneAMG += nombre;
+                    totalLigne += nombre;
+                    flux << nombre << ";";
+                }
+                nombre = 0;
+                query.prepare("SELECT nombre FROM eleve WHERE DeptBac = :Dept AND etape = :Promo");
+                query.bindValue(":Dept", i);
+                query.bindValue(":Promo", "EI3ELE");
+                if(query.exec())
+                {
+                    while(query.next())
+                    {
+                         nombre += query.value(0).toInt();
+                    }
+                    totalColonneELE += nombre;
+                    totalLigne += nombre;
+                    flux << nombre << ";";
+                }
+                nombre = 0;
+                query.prepare("SELECT nombre FROM eleve WHERE DeptBac = :Dept AND (etape = :Promo OR etape = :Promo2)");
+                query.bindValue(":Dept", i);
+                query.bindValue(":Promo", "EI3INF");
+                query.bindValue(":Promo2", "EI3INI");
+                if(query.exec())
+                {
+                    while(query.next())
+                    {
+                        nombre += query.value(0).toInt();
+                    }
+                    totalColonneINF += nombre;
+                    totalLigne += nombre;
+                    flux << nombre << ";";
+                }
+                nombre = 0;
+                query.prepare("SELECT nombre FROM eleve WHERE DeptBac = :Dept AND etape = :Promo");
+                query.bindValue(":Dept", i);
+                query.bindValue(":Promo", "EI3MEC");
+                if(query.exec())
+                {
+                    while(query.next())
+                    {
+                        nombre += query.value(0).toInt();
+                    }
+                    totalColonneMEC += nombre;
+                    totalLigne += nombre;
+                    flux << nombre << ";";
+                }
+                flux << totalLigne << ";" << endl;
+            }
+
+            flux << totalColonneAMG << ";" << totalColonneELE << ";" << totalColonneINF << ";" << totalColonneMEC << ";" <<
+                    totalColonneAMG + totalColonneELE + totalColonneINF + totalColonneMEC << ";" << endl;
+
+            connexionBDD.close();
+        }
+    }
+    else
+    {
+        cout << "ERREUR : Impossible d'ouvrir le fichier" << endl;
+    }
+}
+
+void MainWindow::lancerCreationFichierAnneeSpecifique()
+{
+
+    for(int annee = 2008; annee <= 2011; annee++)
+    {
+        QString an = QString::number(annee);
+        QString nomFichier = "tableauDonnees";
+        nomFichier = nomFichier.append(an).append(".csv");
+        QFile file(nomFichier);
+
+        if (file.open(QFile::WriteOnly)) {
+
+            QTextStream flux(&file);
+            QSqlDatabase connexionBDD = QSqlDatabase::addDatabase("QSQLITE");                                                                   //Connection to the database
+            connexionBDD.setDatabaseName("BDD");
+            connexionBDD.open();
+
+            if (connexionBDD.isOpen())
+            {
+                QSqlQuery query;
+
+                int totalColonneAMG = 0;
+                int totalColonneELE = 0;
+                int totalColonneINF = 0;
+                int totalColonneMEC = 0;
+
+                for(int i = 1; i<=95; i++)
+                {
+                    int nombre = 0;
+                    int totalLigne = 0;
+                    query.prepare("SELECT nombre FROM eleve WHERE DeptBac = :Dept AND etape = :Promo AND annee = :Annee");
+                    query.bindValue(":Dept", i);
+                    query.bindValue(":Promo", "EI3AMG");
+                    query.bindValue(":Annee", annee);
+                    if(query.exec())
+                    {
+                        while(query.next())
+                        {
+                            nombre += query.value(0).toInt();
+                        }
+                        totalColonneAMG += nombre;
+                        totalLigne += nombre;
+                        flux << nombre << ";";
+                    }
+                    nombre = 0;
+                    query.prepare("SELECT nombre FROM eleve WHERE DeptBac = :Dept AND etape = :Promo AND annee = :Annee");
+                    query.bindValue(":Dept", i);
+                    query.bindValue(":Promo", "EI3ELE");
+                    query.bindValue(":Annee", annee);
+                    if(query.exec())
+                    {
+                        while(query.next())
+                        {
+                             nombre += query.value(0).toInt();
+                        }
+                        totalColonneELE += nombre;
+                        totalLigne += nombre;
+                        flux << nombre << ";";
+                    }
+                    nombre = 0;
+                    query.prepare("SELECT nombre FROM eleve WHERE DeptBac = :Dept AND (etape = :Promo OR etape = :Promo2) AND annee = :Annee");
+                    query.bindValue(":Dept", i);
+                    query.bindValue(":Promo", "EI3INF");
+                    query.bindValue(":Promo2", "EI3INI");
+                    query.bindValue(":Annee", annee);
+                    if(query.exec())
+                    {
+                        while(query.next())
+                        {
+                            nombre += query.value(0).toInt();
+                        }
+                        totalColonneINF += nombre;
+                        totalLigne += nombre;
+                        flux << nombre << ";";
+                    }
+                    nombre = 0;
+                    query.prepare("SELECT nombre FROM eleve WHERE DeptBac = :Dept AND etape = :Promo AND annee = :Annee");
+                    query.bindValue(":Dept", i);
+                    query.bindValue(":Promo", "EI3MEC");
+                    query.bindValue(":Annee", annee);
+                    if(query.exec())
+                    {
+                        while(query.next())
+                        {
+                            nombre += query.value(0).toInt();
+                        }
+                        totalColonneMEC += nombre;
+                        totalLigne += nombre;
+                        flux << nombre << ";";
+                    }
+                    flux << totalLigne << ";" << endl;
+                }
+
+                flux << totalColonneAMG << ";" << totalColonneELE << ";" << totalColonneINF << ";" << totalColonneMEC << ";" <<
+                        totalColonneAMG + totalColonneELE + totalColonneINF + totalColonneMEC << ";" << endl;
+
+                connexionBDD.close();
+            }
+        }
+        else
+        {
+            cout << "ERREUR : Impossible d'ouvrir le fichier" << endl;
+        }
+    }
 }
